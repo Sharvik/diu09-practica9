@@ -5,6 +5,8 @@ import java.util.logging.*;
 
 public class DataBaseConnector {
     
+    private Connection connect;
+    
     private final static int SUCCESS = 0;
     private final static int FAILURE = -1;
 
@@ -17,27 +19,27 @@ public class DataBaseConnector {
     private int connectToDB(String user, String pass) {        
         try {
             Class.forName("com.mysql.jdbc.Driver");
-            Connection con = DriverManager.getConnection(
-                    "jdbc:mysql://mozart.dis.ulpgc.es:3306/PracticaDIU?useSSL=true",
+            Connection connect = DriverManager.getConnection(
+                    "jdbc:mysql://genome-mysql.soe.ucsc.edu:3306/hg38?useSSL=true",
                     user,
                     pass);
             
-            DatabaseMetaData md = con.getMetaData();
+            DatabaseMetaData md = connect.getMetaData();
             String[] types = {"TABLE"};
+            //ResultSet rs = md.getTables(null, null, "%", null);
             ResultSet rs = md.getTables(null, null, "%", types);
             
             while(rs.next()) {
-                String tablename = rs.getString("TABLE_NAME");
+                String tablename = rs.getString(3/*"TABLE_NAME"*/);
                 System.out.println("Tabla : " + tablename);
                 
                 ResultSet rs2 = md.getColumns(null, null, tablename, null);
-                while(rs.next()) {
-                    String fieldname = rs.getString("COLUMN_NAME");
+                while(rs2.next()) {
+                    String fieldname = rs2.getString("COLUMN_NAME");
                     System.out.println("    Campo : " + fieldname);
                 }
             }
             
-            con.close();
         } catch (SQLException ex) {
             Logger.getLogger(DataBaseConnector.class.getName()).log(Level.SEVERE, null, ex);
             return FAILURE;
@@ -45,9 +47,14 @@ public class DataBaseConnector {
             Logger.getLogger(DataBaseConnector.class.getName()).log(Level.SEVERE, null, ex);
             return FAILURE;
         }
-        
-        
-        
         return SUCCESS;
+    }
+    
+    public void disconnect() {
+        try {
+            connect.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(DataBaseConnector.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 }
