@@ -5,8 +5,11 @@
  */
 package gui;
 
+import control.ListContentLoader;
+import java.awt.TrayIcon;
 import javafx.scene.control.SelectionMode;
 import javax.swing.JList;
+import javax.swing.JOptionPane;
 import javax.swing.ListSelectionModel;
 import model.DataBaseConnector;
 
@@ -59,13 +62,9 @@ public class MainWindow extends javax.swing.JFrame {
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)), "Select table", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.TOP, new java.awt.Font("RomanT", 1, 13))); // NOI18N
 
-        tableList.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
-        });
         tableList.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
-        tableList.setToolTipText("");
+        tableList.setToolTipText("List of table names available in the database");
+        tableList.setEnabled(false);
         jScrollPane1.setViewportView(tableList);
 
         jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)), "Selection mode", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.TOP, new java.awt.Font("SansSerif", 1, 12))); // NOI18N
@@ -73,6 +72,7 @@ public class MainWindow extends javax.swing.JFrame {
         buttonGroup.add(simpleToggle);
         simpleToggle.setSelected(true);
         simpleToggle.setText("Simple");
+        simpleToggle.setToolTipText("Select a single table from the list [Left Click]");
         simpleToggle.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 simpleToggleActionPerformed(evt);
@@ -81,6 +81,7 @@ public class MainWindow extends javax.swing.JFrame {
 
         buttonGroup.add(rangeToggle);
         rangeToggle.setText("Range");
+        rangeToggle.setToolTipText("Select a table range from the list [SHIFT + Left Click]");
         rangeToggle.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 rangeToggleActionPerformed(evt);
@@ -89,6 +90,7 @@ public class MainWindow extends javax.swing.JFrame {
 
         buttonGroup.add(customToggle);
         customToggle.setText("Custom");
+        customToggle.setToolTipText("Select amy table you wish from the list [CTRL + Left Click]");
         customToggle.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 customToggleActionPerformed(evt);
@@ -122,8 +124,20 @@ public class MainWindow extends javax.swing.JFrame {
         jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)), "Query", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.TOP, new java.awt.Font("SansSerif", 3, 12))); // NOI18N
 
         describeButton.setText("Describe...");
+        describeButton.setToolTipText("Query the table fields");
+        describeButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                describeButtonActionPerformed(evt);
+            }
+        });
 
         resetButton.setText("Reset");
+        resetButton.setToolTipText("Clean the query fields list");
+        resetButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                resetButtonActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -159,8 +173,8 @@ public class MainWindow extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel1Layout.createSequentialGroup()
                     .addContainerGap()
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(166, Short.MAX_VALUE)))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 279, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(157, Short.MAX_VALUE)))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -182,10 +196,25 @@ public class MainWindow extends javax.swing.JFrame {
         userLabel.setFont(new java.awt.Font("RomanT", 0, 12)); // NOI18N
         userLabel.setText("User : ");
 
+        userTextField.setToolTipText("Insert username");
+        userTextField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                userTextFieldActionPerformed(evt);
+            }
+        });
+
         passLabel.setFont(new java.awt.Font("RomanT", 0, 12)); // NOI18N
         passLabel.setText("password : ");
 
+        passTextField.setToolTipText("Insert password");
+        passTextField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                passTextFieldActionPerformed(evt);
+            }
+        });
+
         connectButton.setText("Connect");
+        connectButton.setToolTipText("Authenticate to database server");
         connectButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 connectButtonActionPerformed(evt);
@@ -224,11 +253,8 @@ public class MainWindow extends javax.swing.JFrame {
 
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)), "Table description", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.TOP, new java.awt.Font("RomanT", 1, 13))); // NOI18N
 
-        descriptionList.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
-        });
+        descriptionList.setToolTipText("Table field formated as [TABLE_NAME].[FIELD_NAME]");
+        descriptionList.setEnabled(false);
         jScrollPane2.setViewportView(descriptionList);
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
@@ -288,14 +314,7 @@ public class MainWindow extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void connectButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_connectButtonActionPerformed
-        if (connectButton.getText().equals("Connect")) {
-            connectButton.setText("Disconnect");
-            db = new DataBaseConnector(userTextField.getText(),
-                    new String(passTextField.getPassword()));
-        } else {
-            connectButton.setText("Connect");
-            db.disconnect();
-        }
+        authenticate();
     }//GEN-LAST:event_connectButtonActionPerformed
 
     private void simpleToggleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_simpleToggleActionPerformed
@@ -313,6 +332,60 @@ public class MainWindow extends javax.swing.JFrame {
             tableList.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
     }//GEN-LAST:event_customToggleActionPerformed
 
+    private void resetButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_resetButtonActionPerformed
+        lc.resetList();
+    }//GEN-LAST:event_resetButtonActionPerformed
+
+    private void userTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_userTextFieldActionPerformed
+        authenticate();
+    }//GEN-LAST:event_userTextFieldActionPerformed
+
+    private void passTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_passTextFieldActionPerformed
+        authenticate();
+    }//GEN-LAST:event_passTextFieldActionPerformed
+
+    private void describeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_describeButtonActionPerformed
+        if(tableList.getSelectedValuesList().isEmpty())
+            JOptionPane.showMessageDialog(
+                    null, 
+                    "Please, select a table", 
+                    "No table selected", 
+                    JOptionPane.INFORMATION_MESSAGE);
+        
+        lc.addFields();
+    }//GEN-LAST:event_describeButtonActionPerformed
+
+    public void authenticate() {
+        if(userTextField.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(
+                    null, 
+                    "Please insert an username", 
+                    "Authentication failure", 
+                    JOptionPane.OK_OPTION);
+            return;
+        }
+        
+        if (connectButton.getText().equals("Connect")) {
+            lc = new ListContentLoader(
+                    userTextField.getText(),
+                    new String(passTextField.getPassword()),
+                    tableList, descriptionList);
+            
+            if(lc.addTables() == DataBaseConnector.SUCCESS) {
+                connectButton.setText("Disconnect");
+                connectButton.setToolTipText("Disconnect from database server");
+            }
+            
+        } else {
+            connectButton.setText("Connect");
+            lc.disconnect();
+            JOptionPane.showMessageDialog(null, 
+                    "Session closed sucessfully!", 
+                    "Logged out", 
+                    JOptionPane.INFORMATION_MESSAGE);
+        }
+    }
+    
     /**
      * @param args the command line arguments
      */
@@ -371,5 +444,5 @@ public class MainWindow extends javax.swing.JFrame {
     private javax.swing.JLabel userLabel;
     private javax.swing.JTextField userTextField;
     // End of variables declaration//GEN-END:variables
-    private model.DataBaseConnector db;
+    private ListContentLoader lc;
 }
