@@ -57,8 +57,13 @@ public class MainWindow extends javax.swing.JFrame {
         descriptionList = new javax.swing.JList<>();
         authorLabel = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setTitle("Databaser");
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
+            }
+        });
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)), "Select table", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.TOP, new java.awt.Font("RomanT", 1, 13))); // NOI18N
 
@@ -354,6 +359,23 @@ public class MainWindow extends javax.swing.JFrame {
         
         lc.addFields();
     }//GEN-LAST:event_describeButtonActionPerformed
+
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+        int n = JOptionPane.showOptionDialog(
+                null, 
+                "Are you sure you want to close the session?", 
+                "Logging out...", 
+                JOptionPane.YES_NO_OPTION, 
+                JOptionPane.QUESTION_MESSAGE, 
+                null, 
+                null,
+                null);
+        
+        if(n == JOptionPane.YES_OPTION) {
+            lc.disconnect();
+            this.dispose();
+        }
+    }//GEN-LAST:event_formWindowClosing
 
     public void authenticate() {
         if(userTextField.getText().isEmpty()) {
