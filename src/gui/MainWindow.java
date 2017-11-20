@@ -372,7 +372,7 @@ public class MainWindow extends javax.swing.JFrame {
                 null);
         
         if(n == JOptionPane.YES_OPTION) {
-            lc.disconnect();
+            if (lc != null)lc.disconnect();
             this.dispose();
         }
     }//GEN-LAST:event_formWindowClosing
