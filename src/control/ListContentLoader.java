@@ -6,9 +6,9 @@ import model.DataBaseConnector;
 
 public class ListContentLoader {
     
-    private JList listTables;
-    private JList listFields;
-    private DataBaseConnector db;
+    private final JList listTables;
+    private final JList listFields;
+    private final DataBaseConnector db;
     
     public ListContentLoader(String user, String pass, JList listTables, JList listFields) {
         this.listTables = listTables;

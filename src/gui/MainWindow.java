@@ -6,9 +6,6 @@
 package gui;
 
 import control.ListContentLoader;
-import java.awt.TrayIcon;
-import javafx.scene.control.SelectionMode;
-import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.ListSelectionModel;
 import model.DataBaseConnector;
