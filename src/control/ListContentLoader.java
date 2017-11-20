@@ -40,9 +40,9 @@ public class ListContentLoader {
         
         for (Object selected : listTables.getSelectedValuesList()) {
             String tablename = String.valueOf(selected);
-            for (String fields : db.getField(tablename)) {
+            db.getField(tablename).forEach((fields) -> {
                 lm.addElement(tablename + "." + fields);
-            }
+            });
         }
         
         listFields.setModel(lm);

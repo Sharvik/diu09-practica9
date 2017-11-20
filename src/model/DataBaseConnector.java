@@ -30,8 +30,8 @@ public class DataBaseConnector {
         try {
             Class.forName("com.mysql.jdbc.Driver");
             connect = DriverManager.getConnection(
-                    /*"jdbc:mysql://mozart.dis.ulpgc.es:3306/PracticaDIU?useSSL=true",*/
-                    "jdbc:mysql://genome-mysql.soe.ucsc.edu:3306/hg38?useSSL=true",
+                    "jdbc:mysql://mozart.dis.ulpgc.es:3306/PracticaDIU?useSSL=true",
+                    //"jdbc:mysql://genome-mysql.soe.ucsc.edu:3306/hg38?useSSL=true",
                     user,
                     pass);
 
@@ -72,31 +72,25 @@ public class DataBaseConnector {
         }
     }
 
-    public String[] getField(String tablename) {
-        String[] fields = new String[1];
-
-            DatabaseMetaData md;
+    public ArrayList getField(String tablename) {
+        ArrayList<String> arrayList = new ArrayList<>();
+        DatabaseMetaData md;
         try {
             md = connect.getMetaData();
-            
+
             /*String[] types = {"TABLE"};
             ResultSet rs = md.getTables(null, null, "%", types);*/
-
             ResultSet rs = md.getColumns(null, null, tablename, null);
-            
-            fields = new String[rs.getMetaData().getColumnCount()];
 
-            int i = 0;
-            while (rs.next() && i < fields.length) {
-                fields[i] = rs.getString("COLUMN_NAME");
-                i++;
+            while (rs.next()) {
+                arrayList.add(rs.getString("COLUMN_NAME"));
             }
 
         } catch (SQLException ex) {
             Logger.getLogger(DataBaseConnector.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-        return fields;
+        return arrayList;
     }
 
     public List<String> getTables() {
