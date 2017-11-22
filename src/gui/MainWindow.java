@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package gui;
 
 import control.ListContentLoader;
@@ -10,10 +5,6 @@ import javax.swing.JOptionPane;
 import javax.swing.ListSelectionModel;
 import model.DataBaseConnector;
 
-/**
- *
- * @author Entrar
- */
 public class MainWindow extends javax.swing.JFrame {
 
     /**
@@ -33,17 +24,17 @@ public class MainWindow extends javax.swing.JFrame {
     private void initComponents() {
 
         buttonGroup = new javax.swing.ButtonGroup();
-        jPanel1 = new javax.swing.JPanel();
+        tablePanel = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tableList = new javax.swing.JList<>();
-        jPanel4 = new javax.swing.JPanel();
+        modeSelectionPanel = new javax.swing.JPanel();
         simpleToggle = new javax.swing.JToggleButton();
         rangeToggle = new javax.swing.JToggleButton();
         customToggle = new javax.swing.JToggleButton();
-        jPanel5 = new javax.swing.JPanel();
+        queryPanel = new javax.swing.JPanel();
         describeButton = new javax.swing.JButton();
         resetButton = new javax.swing.JButton();
-        jPanel2 = new javax.swing.JPanel();
+        connectionPanel = new javax.swing.JPanel();
         userLabel = new javax.swing.JLabel();
         userTextField = new javax.swing.JTextField();
         passLabel = new javax.swing.JLabel();
@@ -62,19 +53,20 @@ public class MainWindow extends javax.swing.JFrame {
             }
         });
 
-        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)), "Select table", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.TOP, new java.awt.Font("RomanT", 1, 13))); // NOI18N
+        tablePanel.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)), "Select table", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.TOP, new java.awt.Font("RomanT", 1, 13))); // NOI18N
 
         tableList.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         tableList.setToolTipText("List of table names available in the database");
         tableList.setEnabled(false);
         jScrollPane1.setViewportView(tableList);
 
-        jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)), "Selection mode", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.TOP, new java.awt.Font("SansSerif", 1, 12))); // NOI18N
+        modeSelectionPanel.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)), "Selection mode", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.TOP, new java.awt.Font("SansSerif", 1, 12))); // NOI18N
 
         buttonGroup.add(simpleToggle);
         simpleToggle.setSelected(true);
         simpleToggle.setText("Simple");
         simpleToggle.setToolTipText("Select a single table from the list [Left Click]");
+        simpleToggle.setEnabled(false);
         simpleToggle.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 simpleToggleActionPerformed(evt);
@@ -84,6 +76,7 @@ public class MainWindow extends javax.swing.JFrame {
         buttonGroup.add(rangeToggle);
         rangeToggle.setText("Range");
         rangeToggle.setToolTipText("Select a table range from the list [SHIFT + Left Click]");
+        rangeToggle.setEnabled(false);
         rangeToggle.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 rangeToggleActionPerformed(evt);
@@ -93,27 +86,28 @@ public class MainWindow extends javax.swing.JFrame {
         buttonGroup.add(customToggle);
         customToggle.setText("Custom");
         customToggle.setToolTipText("Select amy table you wish from the list [CTRL + Left Click]");
+        customToggle.setEnabled(false);
         customToggle.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 customToggleActionPerformed(evt);
             }
         });
 
-        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
-        jPanel4.setLayout(jPanel4Layout);
-        jPanel4Layout.setHorizontalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel4Layout.createSequentialGroup()
+        javax.swing.GroupLayout modeSelectionPanelLayout = new javax.swing.GroupLayout(modeSelectionPanel);
+        modeSelectionPanel.setLayout(modeSelectionPanelLayout);
+        modeSelectionPanelLayout.setHorizontalGroup(
+            modeSelectionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(modeSelectionPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(modeSelectionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(simpleToggle, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(rangeToggle, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(customToggle, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
-        jPanel4Layout.setVerticalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel4Layout.createSequentialGroup()
+        modeSelectionPanelLayout.setVerticalGroup(
+            modeSelectionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(modeSelectionPanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(simpleToggle)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -123,10 +117,11 @@ public class MainWindow extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)), "Query", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.TOP, new java.awt.Font("SansSerif", 3, 12))); // NOI18N
+        queryPanel.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)), "Query", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.TOP, new java.awt.Font("SansSerif", 3, 12))); // NOI18N
 
         describeButton.setText("Describe...");
         describeButton.setToolTipText("Query the table fields");
+        describeButton.setEnabled(false);
         describeButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 describeButtonActionPerformed(evt);
@@ -135,26 +130,27 @@ public class MainWindow extends javax.swing.JFrame {
 
         resetButton.setText("Reset");
         resetButton.setToolTipText("Clean the query fields list");
+        resetButton.setEnabled(false);
         resetButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 resetButtonActionPerformed(evt);
             }
         });
 
-        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
-        jPanel5.setLayout(jPanel5Layout);
-        jPanel5Layout.setHorizontalGroup(
-            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel5Layout.createSequentialGroup()
+        javax.swing.GroupLayout queryPanelLayout = new javax.swing.GroupLayout(queryPanel);
+        queryPanel.setLayout(queryPanelLayout);
+        queryPanelLayout.setHorizontalGroup(
+            queryPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(queryPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(queryPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(describeButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(resetButton, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
-        jPanel5Layout.setVerticalGroup(
-            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel5Layout.createSequentialGroup()
+        queryPanelLayout.setVerticalGroup(
+            queryPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(queryPanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(describeButton)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -162,38 +158,38 @@ public class MainWindow extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+        javax.swing.GroupLayout tablePanelLayout = new javax.swing.GroupLayout(tablePanel);
+        tablePanel.setLayout(tablePanelLayout);
+        tablePanelLayout.setHorizontalGroup(
+            tablePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, tablePanelLayout.createSequentialGroup()
                 .addContainerGap(305, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(tablePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(modeSelectionPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(queryPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(20, 20, 20))
-            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jPanel1Layout.createSequentialGroup()
+            .addGroup(tablePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(tablePanelLayout.createSequentialGroup()
                     .addContainerGap()
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 279, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addContainerGap(157, Short.MAX_VALUE)))
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+        tablePanelLayout.setVerticalGroup(
+            tablePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(tablePanelLayout.createSequentialGroup()
                 .addGap(139, 139, 139)
-                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(modeSelectionPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(54, 54, 54)
-                .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(145, Short.MAX_VALUE))
-            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jPanel1Layout.createSequentialGroup()
+                .addComponent(queryPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(163, Short.MAX_VALUE))
+            .addGroup(tablePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(tablePanelLayout.createSequentialGroup()
                     .addContainerGap()
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 562, Short.MAX_VALUE)
                     .addContainerGap()))
         );
 
-        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)), "Connection", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.TOP, new java.awt.Font("RomanT", 1, 13))); // NOI18N
+        connectionPanel.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)), "Connection", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.TOP, new java.awt.Font("RomanT", 1, 13))); // NOI18N
 
         userLabel.setFont(new java.awt.Font("RomanT", 0, 12)); // NOI18N
         userLabel.setText("User : ");
@@ -223,11 +219,11 @@ public class MainWindow extends javax.swing.JFrame {
             }
         });
 
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+        javax.swing.GroupLayout connectionPanelLayout = new javax.swing.GroupLayout(connectionPanel);
+        connectionPanel.setLayout(connectionPanelLayout);
+        connectionPanelLayout.setHorizontalGroup(
+            connectionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, connectionPanelLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(userLabel)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -240,11 +236,11 @@ public class MainWindow extends javax.swing.JFrame {
                 .addComponent(connectButton, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
+        connectionPanelLayout.setVerticalGroup(
+            connectionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(connectionPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(connectionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(userTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(userLabel)
                     .addComponent(passLabel)
@@ -285,14 +281,14 @@ public class MainWindow extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(connectionPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(188, 188, 188))
             .addGroup(layout.createSequentialGroup()
                 .addGap(25, 25, 25)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(authorLabel)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(tablePanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(26, Short.MAX_VALUE))
@@ -301,10 +297,10 @@ public class MainWindow extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(22, 22, 22)
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(connectionPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(tablePanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(authorLabel)
@@ -320,17 +316,17 @@ public class MainWindow extends javax.swing.JFrame {
     }//GEN-LAST:event_connectButtonActionPerformed
 
     private void simpleToggleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_simpleToggleActionPerformed
-        if(simpleToggle.isSelected()) 
+        if (simpleToggle.isSelected())
             tableList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
     }//GEN-LAST:event_simpleToggleActionPerformed
 
     private void rangeToggleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rangeToggleActionPerformed
-        if(rangeToggle.isSelected()) 
+        if (rangeToggle.isSelected())
             tableList.setSelectionMode(ListSelectionModel.SINGLE_INTERVAL_SELECTION);
     }//GEN-LAST:event_rangeToggleActionPerformed
 
     private void customToggleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_customToggleActionPerformed
-        if(customToggle.isSelected()) 
+        if (customToggle.isSelected())
             tableList.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
     }//GEN-LAST:event_customToggleActionPerformed
 
@@ -347,64 +343,75 @@ public class MainWindow extends javax.swing.JFrame {
     }//GEN-LAST:event_passTextFieldActionPerformed
 
     private void describeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_describeButtonActionPerformed
-        if(tableList.getSelectedValuesList().isEmpty())
+        if (tableList.getSelectedValuesList().isEmpty()) 
             JOptionPane.showMessageDialog(
-                    null, 
-                    "Please, select a table", 
-                    "No table selected", 
-                    JOptionPane.INFORMATION_MESSAGE);
-        
-        lc.addFields();
+                    null,
+                    "Please, select a table",
+                    "No table selected",
+                    JOptionPane.INFORMATION_MESSAGE);     
+        else
+            lc.addFields();
     }//GEN-LAST:event_describeButtonActionPerformed
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
         int n = JOptionPane.showOptionDialog(
-                null, 
-                "Are you sure you want to close the session?", 
-                "Logging out...", 
-                JOptionPane.YES_NO_OPTION, 
-                JOptionPane.QUESTION_MESSAGE, 
-                null, 
+                null,
+                "Are you sure you want to close the session?",
+                "Logging out...",
+                JOptionPane.YES_NO_OPTION,
+                JOptionPane.QUESTION_MESSAGE,
+                null,
                 null,
                 null);
-        
-        if(n == JOptionPane.YES_OPTION) {
-            if (lc != null)lc.disconnect();
+
+        if (n == JOptionPane.YES_OPTION) {
+            if (lc != null) 
+                lc.disconnect();
             this.dispose();
         }
     }//GEN-LAST:event_formWindowClosing
 
-    public void authenticate() {
-        if(userTextField.getText().isEmpty()) {
-            JOptionPane.showMessageDialog(
-                    null, 
-                    "Please insert an username", 
-                    "Authentication failure", 
-                    JOptionPane.OK_OPTION);
-            return;
-        }
-        
+    private void authenticate() {
+
         if (connectButton.getText().equals("Connect")) {
+            if (userTextField.getText().isEmpty()) {
+                JOptionPane.showMessageDialog(
+                        null,
+                        "Please insert an username",
+                        "Authentication failure",
+                        JOptionPane.OK_OPTION);
+                return;
+            }
             lc = new ListContentLoader(
                     userTextField.getText(),
                     new String(passTextField.getPassword()),
                     tableList, descriptionList);
-            
-            if(lc.addTables() == DataBaseConnector.SUCCESS) {
+
+            if (lc.addTables() == DataBaseConnector.SUCCESS) {
                 connectButton.setText("Disconnect");
                 connectButton.setToolTipText("Disconnect from database server");
+                setButtonsEnabled(true);
             }
-            
+
         } else {
             connectButton.setText("Connect");
             lc.disconnect();
-            JOptionPane.showMessageDialog(null, 
-                    "Session closed sucessfully!", 
-                    "Logged out", 
+            setButtonsEnabled(false);
+            JOptionPane.showMessageDialog(null,
+                    "Session closed sucessfully!",
+                    "Logged out",
                     JOptionPane.INFORMATION_MESSAGE);
         }
     }
     
+    private void setButtonsEnabled(boolean b) {
+        simpleToggle.setEnabled(b);
+        rangeToggle.setEnabled(b);
+        customToggle.setEnabled(b);
+        describeButton.setEnabled(b);
+        resetButton.setEnabled(b);
+    }
+
     /**
      * @param args the command line arguments
      */
@@ -444,22 +451,22 @@ public class MainWindow extends javax.swing.JFrame {
     private javax.swing.JLabel authorLabel;
     private javax.swing.ButtonGroup buttonGroup;
     private javax.swing.JButton connectButton;
+    private javax.swing.JPanel connectionPanel;
     private javax.swing.JToggleButton customToggle;
     private javax.swing.JButton describeButton;
     private javax.swing.JList<String> descriptionList;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
-    private javax.swing.JPanel jPanel4;
-    private javax.swing.JPanel jPanel5;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JPanel modeSelectionPanel;
     private javax.swing.JLabel passLabel;
     private javax.swing.JPasswordField passTextField;
+    private javax.swing.JPanel queryPanel;
     private javax.swing.JToggleButton rangeToggle;
     private javax.swing.JButton resetButton;
     private javax.swing.JToggleButton simpleToggle;
     private javax.swing.JList<String> tableList;
+    private javax.swing.JPanel tablePanel;
     private javax.swing.JLabel userLabel;
     private javax.swing.JTextField userTextField;
     // End of variables declaration//GEN-END:variables

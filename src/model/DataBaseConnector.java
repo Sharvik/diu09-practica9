@@ -30,8 +30,8 @@ public class DataBaseConnector {
         try {
             Class.forName("com.mysql.jdbc.Driver");
             connect = DriverManager.getConnection(
-                    "jdbc:mysql://mozart.dis.ulpgc.es:3306/PracticaDIU?useSSL=true",
-                    //"jdbc:mysql://genome-mysql.soe.ucsc.edu:3306/hg38?useSSL=true",
+                    //"jdbc:mysql://mozart.dis.ulpgc.es:3306/PracticaDIU?useSSL=true",
+                    "jdbc:mysql://genome-mysql.soe.ucsc.edu:3306/hg38?useSSL=true",
                     user,
                     pass);
 
@@ -62,13 +62,6 @@ public class DataBaseConnector {
         while (rs.next()) {
             String tablename = rs.getString("TABLE_NAME");
             tables.add(tablename);
-            /*System.out.println("Tabla : " + tablename);
-                
-                ResultSet rs2 = md.getColumns(null, null, tablename, null);
-                while(rs2.next()) {
-                    String fieldname = rs2.getString("COLUMN_NAME");
-                    System.out.println("    Campo : " + fieldname);
-                }*/
         }
     }
 
@@ -78,8 +71,6 @@ public class DataBaseConnector {
         try {
             md = connect.getMetaData();
 
-            /*String[] types = {"TABLE"};
-            ResultSet rs = md.getTables(null, null, "%", types);*/
             ResultSet rs = md.getColumns(null, null, tablename, null);
 
             while (rs.next()) {
